@@ -4,7 +4,7 @@ A spell checker with sugestions using only /usr/share/dict/words - emulates ispe
 Other spell checkers are huge beasts.  But this one is pretty small.
 It just uses /usr/share/dict/words which is available on all Linux systems.
 
-Here is what happens when you send a correctly spelled word and an incorrected spelled word:
+Here is what happens when you check a correctly spelled word and an incorrected spelled word:
 
  ```
  echo apple orrange | ./dspell
