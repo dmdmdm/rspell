@@ -2,7 +2,7 @@
 A spell checker with suggestions using only `/usr/share/dict/words` -- emulates ispell and aspell
 
 Other spell checkers are huge beasts.  But this one is pretty small.
-It just uses /usr/share/dict/words which is available on all Linux systems.
+It just uses `/usr/share/dict/words` which is available on all Linux systems.
 
 Here's what happens when you check a correctly spelled word and an incorrectly spelled word:
 
