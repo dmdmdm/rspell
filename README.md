@@ -6,11 +6,11 @@ It just uses /usr/share/dict/words which is available on all Linux systems.
 
 Here's what happens when you check a correctly spelled word and an incorrectly spelled word:
 
- ```
- $ echo apple orrange | ./dspell
- @(#) International Ispell Version 3.1.20 (but really dspell .1)
- *
- & orrange 6 6: arrange, cornage, orange, oranger, oranges, orangey
+```
+$ echo apple orrange | ./dspell
+@(#) International Ispell Version 3.1.20 (but really dspell .1)
+*
+& orrange 6 6: arrange, cornage, orange, oranger, oranges, orangey
 ```
 
 You get pretty much the same thing from big aspell:
