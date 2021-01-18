@@ -20,3 +20,5 @@ $ echo apple orrange | aspell -a
 *
 & orrange 13 6: Orange, orange, arrange, arranger, or range, or-range, oranges, range, arranged, arranges, grange, Orange's, orange's
 ```
+
+The output from these spell-checkers is intented to be used by another program -- like a word processor.
