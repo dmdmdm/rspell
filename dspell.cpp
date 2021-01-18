@@ -1,5 +1,4 @@
-// dspell, (c) Copyright 2003, Recursive Pizza
-// Ported to Windows, 2009
+// dspell, (c) Copyright 2009, Recursive Pizza
 //
 // How to emulate ispell's output:
 // http://www.aoindustries.com/docs/aspell-0.33.7/man-html/6_Writing.html
