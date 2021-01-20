@@ -1,7 +1,5 @@
-// dspell, (c) Copyright 2009, Recursive Pizza
-//
-// How to emulate ispell's output:
-// http://www.aoindustries.com/docs/aspell-0.33.7/man-html/6_Writing.html
+// dspell
+// (c) Copyright 2009, Recursive Pizza
 
 #include <stdio.h>
 #include <stdlib.h>	// For getenv()
@@ -58,7 +56,6 @@ static void Mark(WORD_MAP &a, const char *word, WHERE where)
 
 static void CheckSuggestions(WORD_MAP &a, WORD_LIST &b)
 {
-	WORD_MAP::iterator	p;
 	const char		*word;
 
 #ifdef __BORLANDC__
@@ -67,7 +64,7 @@ static void CheckSuggestions(WORD_MAP &a, WORD_LIST &b)
 	b.clear();
 #endif
 
-	for (p = a.begin(); p != a.end(); p++)
+	for (WORD_MAP::const_iterator p = a.begin(); p != a.end(); p++)
 	{
 		word = (*p).first.c_str();
 		if (InDict(word))
@@ -86,8 +83,8 @@ static char insert_chars[] = "-abcdefghijklmnopqrstuvwxyz";
 
 static void Suggestions(const char *word_in, WORD_LIST &b)
 {
-	WORD_MAP		a;
 	WORD_MAP::iterator	p;
+	WORD_MAP		a;
 	int		i;
 	int		len, len1;
 	char		buf[MAX_WORD+1];
@@ -99,7 +96,7 @@ static void Suggestions(const char *word_in, WORD_LIST &b)
 	// Add the word itself
 	Mark(a, word_in, W_THE_WORD);
 
-	// swap adjacent
+	// Swap adjacent
 	for (p = a.begin(); p != a.end(); p++)
 	{
 		type = (*p).second;
@@ -117,7 +114,7 @@ static void Suggestions(const char *word_in, WORD_LIST &b)
 		}
 	}
 
-	// delete letters
+	// Delete letters
 	for (p = a.begin(); p != a.end(); p++)
 	{
 		type = (*p).second;
@@ -133,7 +130,7 @@ static void Suggestions(const char *word_in, WORD_LIST &b)
 		}
 	}
 
-	// insert
+	// Insert
 	for (p = a.begin(); p != a.end(); p++)
 	{
 		type = (*p).second;
@@ -156,7 +153,6 @@ static void Suggestions(const char *word_in, WORD_LIST &b)
 	// Don't want the original word as a suggestion any more
 	a.erase(word_in);
 
-	//printf("(tried %d)", a.size());
 	CheckSuggestions(a, b);
 }
 
@@ -233,11 +229,10 @@ static void SpellLine(const char *line)
 			}
 			else
 			{
-				WORD_LIST::iterator	p;
 				bool			bNeedComma = false;
 
 				printf("& %s %d %d: ", word, (int)b.size(), word_offset);
-				for (p = b.begin(); p != b.end(); p++)
+				for (WORD_LIST::const_iterator p = b.begin(); p != b.end(); p++)
 				{
 					if (bNeedComma) printf(", ");
 					printf("%s", (*p).c_str());
