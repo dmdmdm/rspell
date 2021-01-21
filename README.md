@@ -22,3 +22,6 @@ $ echo apple orrange | aspell -a
 ```
 
 The output from these spell-checkers is intended to be used by another program -- like a word processor.
+
+Compiles and works on Linux and Windows (VC++).
+But on Windows you need to supply a word file.
