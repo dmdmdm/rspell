@@ -17,6 +17,7 @@
 
 static void Usage()
 {
+	// Note to self: Do NOT use AboutUtils here - to reduce dependances since this is on github
 	fprintf(stderr, "Usage: dspell [options are ignored] < file\n");
 	exit(1);
 }
