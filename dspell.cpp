@@ -67,7 +67,7 @@ static void CheckSuggestions(WORD_MAP &a, WORD_LIST &b)
 
 	for (WORD_MAP::const_iterator it = a.begin(); it != a.end(); it++)
 	{
-		word = p->first.c_str();
+		word = it->first.c_str();
 		if (InDict(word))
 		{
 			b.push_back(word);
