@@ -43,7 +43,7 @@ inline void ToLower(char *s)
 static bool LoadDict(const char *file)
 {
 	FILE	*f;
-	char	buf[MAX_WORD+1];
+	char	buf[MAX_WORD];
 
 	if ((f = fopen(file, "rt")) == NULL)
 	{
@@ -72,19 +72,18 @@ static bool IsExists(const char *file)
 
 static void LoadDict()
 {
-	char 	buf[MAX_PATH+1];
+	char 	buf[MAX_PATH] = "";
 
 #ifdef _WIN32
 	// Windows
 	LPSTR	p;
 
-	buf[0] = '\0';
 	GetModuleFileName(NULL, buf, sizeof(buf));
 	if ((p = strrchr(buf, '\\')) == NULL)
 	{
-		p = &buf[lstrlen(buf)-1]; // Last char
+		p = &buf[lstrlen(buf) - 1]; // Last char
 	}
-	lstrcpyn(p+1, "words.txt", sizeof(buf));
+	lstrcpyn(p + 1, "words.txt", sizeof(buf));
 
 	if (IsExists(buf))
 	{
@@ -127,7 +126,7 @@ inline bool IsNumber(const char *s)
 
 bool InDict(const char *word)
 {
-	char	lower[MAX_WORD+1];
+	char	lower[MAX_WORD];
 
 	if (dict.size() == 0)
 	{
