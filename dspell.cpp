@@ -233,10 +233,10 @@ static void SpellLine(const char *line)
 				bool			bNeedComma = false;
 
 				printf("& %s %d %d: ", word, (int)b.size(), word_offset);
-				for (WORD_LIST::const_iterator p = b.begin(); p != b.end(); p++)
+				for (WORD_LIST::const_iterator it = b.begin(); it != b.end(); it++)
 				{
 					if (bNeedComma) printf(", ");
-					printf("%s", (*p).c_str());
+					printf("%s", it->c_str());
 					bNeedComma = true;
 				}
 				printf("\n");
