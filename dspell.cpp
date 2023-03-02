@@ -65,9 +65,9 @@ static void CheckSuggestions(WORD_MAP &a, WORD_LIST &b)
 	b.clear();
 #endif
 
-	for (WORD_MAP::const_iterator p = a.begin(); p != a.end(); p++)
+	for (WORD_MAP::const_iterator it = a.begin(); it != a.end(); it++)
 	{
-		word = (*p).first.c_str();
+		word = p->first.c_str();
 		if (InDict(word))
 		{
 			b.push_back(word);
@@ -77,7 +77,7 @@ static void CheckSuggestions(WORD_MAP &a, WORD_LIST &b)
 
 inline char *Shuffle(char *dest, const char *src)
 {
-	return (char *) memmove(dest, src, strlen(src)+1);
+	return (char *) memmove(dest, src, strlen(src) + 1);
 }
 
 static char insert_chars[] = "-abcdefghijklmnopqrstuvwxyz";
@@ -88,7 +88,7 @@ static void Suggestions(const char *word_in, WORD_LIST &b)
 	WORD_MAP		a;
 	int		i;
 	int		len, len1;
-	char		buf[MAX_WORD+1];
+	char		buf[MAX_WORD];
 	char		c;
 	int		j;
 	const char	*word;
@@ -109,8 +109,8 @@ static void Suggestions(const char *word_in, WORD_LIST &b)
 		{
 			strcpy(buf, word);
 			c = buf[i];
-			buf[i] = buf[i+1];
-			buf[i+1] = c;
+			buf[i] = buf[i + 1];
+			buf[i + 1] = c;
 			Mark(a, buf, W_SWAP);
 		}
 	}
@@ -126,7 +126,7 @@ static void Suggestions(const char *word_in, WORD_LIST &b)
 		for (i = 0; i < len; i++)
 		{
 			strcpy(buf, word);
-			memmove(&buf[i], &buf[i+1], len-i);
+			memmove(&buf[i], &buf[i + 1], len - i);
 			Mark(a, buf, W_DELETE);
 		}
 	}
@@ -142,7 +142,7 @@ static void Suggestions(const char *word_in, WORD_LIST &b)
 		for (i = 0; i <= len; i++)
 		{
 			strcpy(buf, word);
-			Shuffle(&buf[i+1], &buf[i]);
+			Shuffle(&buf[i + 1], &buf[i]);
 			for (j = 0; insert_chars[j]; j++)
 			{
 				buf[i] = insert_chars[j];
@@ -207,7 +207,7 @@ static bool GetWord(const char *&pRead, char *word, const size_t size, int &char
 static void SpellLine(const char *line)
 {
 	const char	*pRead = line;
-	char		word[MAX_WORD+1];
+	char		word[MAX_WORD];
 	int		char_offset = 0;
 	int		word_offset = 0;
 
@@ -257,7 +257,7 @@ void Chomp(char *s)
 
 static void Spell(FILE *f)
 {
-	char	line[MAX_LINE+1];
+	char	line[MAX_LINE];
 
 	for (;;)
 	{
