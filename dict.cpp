@@ -8,7 +8,7 @@
 #include <map>
 #include <string.h>
 #include <string>
-#include "dspell.h"
+#include "rspell.h"
 #include "dict.h"
 
 #ifdef _WIN32
