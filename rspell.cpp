@@ -73,7 +73,7 @@ static char insert_chars[] = "-abcdefghijklmnopqrstuvwxyz";
 
 static void Suggestions(const char *word_in, WORD_LIST &b)
 {
-	WORD_MAP::iterator	p;
+	WORD_MAP::iterator	it;
 	WORD_MAP		a;
 	int		i;
 	int		len, len1;
@@ -87,12 +87,12 @@ static void Suggestions(const char *word_in, WORD_LIST &b)
 	Mark(a, word_in, W_THE_WORD);
 
 	// Swap adjacent
-	for (p = a.begin(); p != a.end(); p++)
+	for (it = a.begin(); it != a.end(); it++)
 	{
-		type = (*p).second;
+		type = it->second;
 		if (type == W_SWAP) continue; // Its from me
 
-		word = (*p).first.c_str();
+		word = it->first.c_str();
 		len1 = (int)strlen(word) - 1;
 		for (i = 0; i < len1; i++)
 		{
@@ -105,12 +105,12 @@ static void Suggestions(const char *word_in, WORD_LIST &b)
 	}
 
 	// Delete letters
-	for (p = a.begin(); p != a.end(); p++)
+	for (it = a.begin(); it != a.end(); it++)
 	{
-		type = (*p).second;
+		type = it->second;
 		if (type == W_DELETE) continue; // Its from me
 
-		word = (*p).first.c_str();
+		word = it->first.c_str();
 		len = (int)strlen(word);
 		for (i = 0; i < len; i++)
 		{
@@ -121,12 +121,12 @@ static void Suggestions(const char *word_in, WORD_LIST &b)
 	}
 
 	// Insert
-	for (p = a.begin(); p != a.end(); p++)
+	for (it = a.begin(); it != a.end(); it++)
 	{
-		type = (*p).second;
+		type = it->second;
 		if (type == W_INSERT) continue; // Its from me
 
-		word = (*p).first.c_str();
+		word = it->first.c_str();
 		len = (int)strlen(word);
 		for (i = 0; i <= len; i++)
 		{
