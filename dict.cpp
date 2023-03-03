@@ -18,11 +18,7 @@
 static const char *main_dict = "/usr/share/dict/words";
 #endif
 
-#ifdef __BORLANDC__
-typedef std::map<std::string, bool, std::less<std::string> > DICT;
-#else
 typedef std::map<std::string, bool> DICT;
-#endif
 
 #ifdef _MSC_VER
 #pragma warning(disable: 4996) // stdlib
