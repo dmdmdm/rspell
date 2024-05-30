@@ -1,4 +1,4 @@
-// dspell
+// rspell
 // (c) Copyright 2003, Recursive Pizza
 // Ported to Windows, 2009
 
