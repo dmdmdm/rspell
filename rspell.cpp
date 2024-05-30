@@ -156,13 +156,13 @@ static bool IsWordChar(const char c, const int len)
 	return false;
 }
 
-static bool GetWord(const char *&pRead, char *word, const size_t size, int &char_offset, int &word_offset)
+static bool GetWord(const char *&pRead, char *wordOut, const size_t sizeWordOut, int &char_offset, int &word_offset)
 {
-	char	*pWord = word;
+	char	*pWord = wordOut;
 	int	n = 0;
 	int	c;
 
-	word[0] = '\0';
+	wordOut[0] = '\0';
 
 	// Skip leading non-word chars
 	for (;;)
@@ -186,7 +186,7 @@ static bool GetWord(const char *&pRead, char *word, const size_t size, int &char
 		if (!IsWordChar(c, n)) break;
 		*pWord++ = c;
 		n++;
-		if (n >= (int)size) break;
+		if (n >= (int)sizeWordOut) break;
 	}
 
 	*pWord = '\0';
