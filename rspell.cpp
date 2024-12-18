@@ -6,7 +6,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <list>
 #include "dict.h"
 #include "rspell.h"
@@ -36,7 +36,7 @@ inline bool ceq(const char *a, const char *b)
 typedef std::string SPELL_WORD;
 typedef enum { W_NOT_IN_DICT, W_THE_WORD, W_SWAP, W_DELETE, W_INSERT } WHERE;
 
-typedef std::map<SPELL_WORD, int> WORD_MAP;
+typedef std::unordered_map<SPELL_WORD, int> WORD_MAP;
 
 typedef std::list<SPELL_WORD> WORD_LIST;
 
