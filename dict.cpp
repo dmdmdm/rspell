@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <sys/stat.h>
-#include <map>
+#include <unordered_map>
 #include <string.h>
 #include <string>
 #include "rspell.h"
@@ -18,7 +18,7 @@
 static const char *main_dict = "/usr/share/dict/words";
 #endif
 
-typedef std::map<std::string, bool> DICT;
+typedef std::unordered_map<std::string, bool> DICT;
 
 #ifdef _MSC_VER
 #pragma warning(disable: 4996) // stdlib
