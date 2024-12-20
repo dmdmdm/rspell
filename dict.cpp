@@ -42,7 +42,7 @@ static bool LoadDict(const char *file)
 	FILE	*f;
 	char	buf[MAX_WORD];
 
-	fprintf(stderr, "Loading %s\n", local_words);
+	fprintf(stderr, "Loading %s\n", file);
 
 	if ((f = fopen(file, "rt")) == NULL)
 	{
