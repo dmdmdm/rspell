@@ -16,5 +16,6 @@ jobs:
     - name: make
       run: make
     - name: make check
+      run: apt install wamerican-large
       run: make check
  
