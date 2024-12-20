@@ -42,6 +42,8 @@ static bool LoadDict(const char *file)
 	FILE	*f;
 	char	buf[MAX_WORD];
 
+	fprintf(stderr, "Loading %s\n", local_words);
+
 	if ((f = fopen(file, "rt")) == NULL)
 	{
 		fprintf(stderr, "Could not open %s\n", file);
@@ -99,12 +101,10 @@ static void LoadDict()
 
 	snprintf(local_words, sizeof(local_words), "%s/words", getenv("HOME"));
 	if (IsExists(local_words)) {
-		fprintf(stderr, "Loading %s\n", local_words);
 		LoadDict(local_words);
 	}
 
 	if (IsExists("words")) {
-		fprintf(stderr, "Loading 'words' in current folder\n");
 		LoadDict("words");
 	}
 #endif
