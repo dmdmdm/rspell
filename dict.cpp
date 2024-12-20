@@ -15,7 +15,8 @@
 #include "windows.h"
 #else
 // Linux
-static const char *main_dict = "/usr/share/dict/words";
+static const char *main_dict1 = "/usr/share/dict/words";
+static const char *main_dict2 = "/usr/share/words";
 #endif
 
 typedef std::unordered_map<std::string, bool> DICT;
@@ -68,36 +69,40 @@ static bool IsExists(const char *file)
 
 static void LoadDict()
 {
-	char 	buf[MAX_PATH] = "";
+	char 	local_words[MAX_PATH] = "";
 
 #ifdef _WIN32
 	// Windows
 	LPSTR	p;
 
-	GetModuleFileName(NULL, buf, sizeof(buf));
-	if ((p = strrchr(buf, '\\')) == NULL)
-	{
-		p = &buf[lstrlen(buf) - 1]; // Last char
+	GetModuleFileName(NULL, local_words, sizeof(local_words));
+	if ((p = strrchr(local_words, '\\')) == NULL) {
+		p = &local_words[lstrlen(local_words) - 1]; // Last char
 	}
-	lstrcpyn(p + 1, "words.txt", sizeof(buf));
+	lstrcpyn(p + 1, "words.txt", sizeof(local_words));
 
-	if (IsExists(buf))
-	{
-		LoadDict(buf);
+	if (IsExists(local_words)) {
+		LoadDict(local_words);
 	}
 
 #else
 	// Unix
-	LoadDict(main_dict);
-	snprintf(buf, sizeof(buf), "%s/words", getenv("HOME"));
-
-	if (IsExists(buf))
-	{
-		LoadDict(buf);
+	if (IsExists(main_dict1)) {
+		LoadDict(main_dict1);
+	}
+	else if (IsExists(main_dict2)) {
+		LoadDict(main_dict2);
+	}
+	else {
+		fprintf(stderr, "Could not load %s or %s\n", main_dict1, main_dict2);
 	}
 
-	if (IsExists("words"))
-	{
+	snprintf(local_words, sizeof(local_words), "%s/words", getenv("HOME"));
+	if (IsExists(local_words)) {
+		LoadDict(local_words);
+	}
+
+	if (IsExists("words")) {
 		LoadDict("words");
 	}
 #endif
