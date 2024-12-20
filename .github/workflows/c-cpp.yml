@@ -15,8 +15,8 @@ jobs:
     - uses: actions/checkout@v3
     - name: make
       run: make
-    - name: install words
-      run: apt install wamerican-large
+    - name: show words
+      run: ls -l /usr/share/dict
     - name: make check
       run: make check
  
