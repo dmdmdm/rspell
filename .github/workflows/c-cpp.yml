@@ -16,7 +16,7 @@ jobs:
     - name: make
       run: make
     - name: Install dependencies
-      run: sudo sudo apt-get install -y wamerican-large
+      run: sudo sudo apt-get install -y wamerican-small
     - name: make check
       run: make check
  
