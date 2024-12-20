@@ -16,7 +16,7 @@ jobs:
     - name: make
       run: make
     - name: show words
-      run: ls -l /usr/share/dict
+      run: cat /usr/share/dict/README.select-wordlist
     - name: make check
       run: make check
  
