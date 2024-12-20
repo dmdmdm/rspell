@@ -15,8 +15,6 @@ jobs:
     - uses: actions/checkout@v3
     - name: make
       run: make
-    - name: show words
-      run: cat /usr/share/dict/README.select-wordlist
     - name: make check
       run: make check
  
