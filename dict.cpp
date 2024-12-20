@@ -54,6 +54,7 @@ static bool LoadDict(const char *file)
 	{
 		if (fgets(buf, sizeof(buf), f) == NULL) break;
 		Chomp(buf);
+		if (buf[0] == '#') continue;
 		ToLower(buf);
 		dict[buf] = true;
 	}
