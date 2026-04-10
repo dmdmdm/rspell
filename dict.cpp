@@ -65,9 +65,13 @@ static bool LoadDict(const char *file)
 
 static bool IsExists(const char *file)
 {
-	struct stat	sb;
-
-	return stat(file, &sb) == 0;
+#ifdef _WIN32
+#define STAT64 _stat64
+#else
+#define STAT64 stat64
+#endif
+	struct STAT64	sb;
+	return STAT64(file, &sb) == 0;
 }
 
 static void LoadDict()
