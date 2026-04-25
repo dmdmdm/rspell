@@ -153,7 +153,7 @@ bool InDict(const char *word)
 #ifdef _MSC_VER
 	lstrcpyn(lower, word, sizeof(lower));
 #else
-	strcpy(lower, word);
+	strlcpy(lower, word, sizeof(lower));
 #endif
 
 	ToLower(lower);
