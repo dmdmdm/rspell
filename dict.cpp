@@ -46,7 +46,7 @@ static bool LoadDict(const char *file)
 
 	if ((f = fopen(file, "rt")) == NULL)
 	{
-		fprintf(stderr, "Could not open %s\n", file);
+		fprintf(stderr, "Could not open %s becuase %s\n", file, _strerror(NULL));
 		return false;
 	}
 
