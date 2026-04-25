@@ -37,6 +37,12 @@ inline void ToLower(char *s)
 	}
 }
 
+#ifdef _WIN32
+#define STRERROR _strerror
+#else
+#define STRERROR strerror
+#endif
+
 static bool LoadDict(const char *file)
 {
 	FILE	*f;
@@ -46,7 +52,7 @@ static bool LoadDict(const char *file)
 
 	if ((f = fopen(file, "rt")) == NULL)
 	{
-		fprintf(stderr, "Could not open %s becuase %s\n", file, _strerror(NULL));
+		fprintf(stderr, "Could not open %s becuase %s\n", file, STRERROR(NULL));
 		return false;
 	}
 
