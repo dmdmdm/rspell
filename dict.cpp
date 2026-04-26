@@ -3,7 +3,7 @@
 // Ported to Windows, 2009
 
 #include <stdio.h>
-#include <ctype.h>
+#include <ctype.h> 
 #include <sys/stat.h>
 #include <unordered_map>
 #include <string.h>
@@ -97,6 +97,10 @@ static void LoadDict()
 
 	if (IsExists(local_words)) {
 		LoadDict(local_words);
+	}
+	else {
+		fprintf(stderr, "Dictionary %s is missing\n", local_words);
+		exit(1);
 	}
 
 #else
