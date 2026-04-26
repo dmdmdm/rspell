@@ -22,7 +22,27 @@ static void Usage()
 }
 
 //-----------------------------------------------------------------------------
-// Suggestions
+// Utilities
+
+#ifdef _MSC_VER
+static char *windows_strcpyn(char *dest, const char *src, const size_t maxChars) {
+	if (maxChars == 0) return dest;
+	size_t i;
+	for (i = 0; i + 1 < maxChars && src[i] != '\0'; ++i) {
+		dest[i] = src[i];
+	}
+	dest[i] = '\0';
+	return dest;
+}
+#endif
+
+void portable_strlcpy(char *dest, const char *src, const size_t maxChars) {
+#ifdef _MSC_VER
+	windows_strcpyn(dest, src, maxChars);
+#else
+	strlcpy(dest, src, maxChars);
+#endif
+}
 
 inline bool ceq(const char *a, const char *b)
 {
@@ -32,6 +52,9 @@ inline bool ceq(const char *a, const char *b)
 	return strcasecmp(a,b) == 0;
 #endif
 }
+
+//-----------------------------------------------------------------------------
+// Suggestions
 
 typedef std::string SPELL_WORD;
 typedef enum { W_NOT_IN_DICT, W_THE_WORD, W_SWAP, W_DELETE, W_INSERT } WHERE;
@@ -96,7 +119,7 @@ static void Suggestions(const char *word_in, WORD_LIST &b)
 		len1 = (int)strlen(word) - 1;
 		for (i = 0; i < len1; i++)
 		{
-			strcpy(buf, word);
+			portable_strlcpy(buf, word, sizeof(buf));
 			c = buf[i];
 			buf[i] = buf[i + 1];
 			buf[i + 1] = c;
@@ -114,7 +137,7 @@ static void Suggestions(const char *word_in, WORD_LIST &b)
 		len = (int)strlen(word);
 		for (i = 0; i < len; i++)
 		{
-			strcpy(buf, word);
+			portable_strlcpy(buf, word, sizeof(buf));
 			memmove(&buf[i], &buf[i + 1], len - i);
 			Mark(a, buf, W_DELETE);
 		}
@@ -130,7 +153,7 @@ static void Suggestions(const char *word_in, WORD_LIST &b)
 		len = (int)strlen(word);
 		for (i = 0; i <= len; i++)
 		{
-			strcpy(buf, word);
+			portable_strlcpy(buf, word, sizeof(buf));
 			Shuffle(&buf[i + 1], &buf[i]);
 			for (j = 0; insert_chars[j]; j++)
 			{
