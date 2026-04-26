@@ -150,12 +150,7 @@ bool InDict(const char *word)
 
 	if (IsNumber(word)) return true;
 
-#ifdef _MSC_VER
-	lstrcpyn(lower, word, sizeof(lower));
-#else
-	strlcpy(lower, word, sizeof(lower));
-#endif
-
+	portable_strlcpy(lower, word, sizeof(lower));
 	ToLower(lower);
 	return dict[lower];
 }
