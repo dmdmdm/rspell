@@ -11,6 +11,10 @@
 #include "dict.h"
 #include "rspell.h"
 
+#ifdef _WIN32
+#include "windows.h"
+#endif
+
 #ifdef _MSC_VER
 #pragma warning(disable: 4996) // stdlib
 #endif
@@ -24,21 +28,9 @@ static void Usage()
 //-----------------------------------------------------------------------------
 // Utilities
 
-#ifdef _MSC_VER
-static char *windows_strcpyn(char *dest, const char *src, const size_t maxChars) {
-	if (maxChars == 0) return dest;
-	size_t i;
-	for (i = 0; i + 1 < maxChars && src[i] != '\0'; ++i) {
-		dest[i] = src[i];
-	}
-	dest[i] = '\0';
-	return dest;
-}
-#endif
-
 void portable_strlcpy(char *dest, const char *src, const size_t maxChars) {
 #ifdef _MSC_VER
-	windows_strcpyn(dest, src, maxChars);
+	lstrcpyn(dest, src, maxChars);
 #else
 	strlcpy(dest, src, maxChars);
 #endif
