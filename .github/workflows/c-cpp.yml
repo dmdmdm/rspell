@@ -12,11 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: make
       run: make
     - name: Install dependencies
-      run: sudo sudo apt-get install -y wamerican-small
+      run: sudo apt-get install -y wamerican-small
     - name: make check
       run: make check
  
