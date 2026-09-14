@@ -3,7 +3,7 @@
 // Ported to Windows, 2009
 
 #include <stdio.h>
-#include <ctype.h> 
+#include <ctype.h>
 #include <sys/stat.h>
 #include <unordered_map>
 #include <string.h>
@@ -15,8 +15,8 @@
 #include "windows.h"
 #else
 // Linux
-static const char *main_dict1 = "/usr/share/dict/words";
-static const char *main_dict2 = "/usr/share/words";
+static const char *s_main_dict1 = "/usr/share/dict/words";
+static const char *s_main_dict2 = "/usr/dict/words";
 #endif
 
 typedef std::unordered_map<std::string, bool> DICT;
@@ -25,7 +25,7 @@ typedef std::unordered_map<std::string, bool> DICT;
 #pragma warning(disable: 4996) // stdlib
 #endif
 
-static DICT dict;
+static DICT s_dict;
 
 inline void ToLower(char *s)
 {
@@ -36,11 +36,12 @@ inline void ToLower(char *s)
 		*p = tolower(*p);
 	}
 }
+
 static char *MyStrError() {
 #ifdef _WIN32
-    return _strerror(NULL);
+	return _strerror(NULL);
 #else
-    return strerror(errno);
+	return strerror(errno);
 #endif
 }
 
@@ -53,7 +54,7 @@ static bool LoadDict(const char *file)
 
 	if ((f = fopen(file, "rt")) == NULL)
 	{
-		fprintf(stderr, "Could not open %s becuase %s\n", file, MyStrError());
+		fprintf(stderr, "Could not open %s because %s\n", file, MyStrError());
 		return false;
 	}
 
@@ -63,7 +64,7 @@ static bool LoadDict(const char *file)
 		Chomp(buf);
 		if (buf[0] == '#') continue;
 		ToLower(buf);
-		dict[buf] = true;
+		s_dict[buf] = true;
 	}
 
 	fclose(f);
@@ -89,30 +90,31 @@ static void LoadDict()
 	// Windows
 	LPSTR	p;
 
-	GetModuleFileName(NULL, local_words, sizeof(local_words));
-	if ((p = strrchr(local_words, '\\')) == NULL) {
-		p = &local_words[lstrlen(local_words) - 1]; // Last char
+	GetModuleFileName(NULL, local_words, sizeof(buf));
+	if ((p = strrchr(local_words, '\\')) == NULL)
+	{
+		p = &buf[lstrlen(load_words) - 1]; // Last char
 	}
-	lstrcpyn(p + 1, "words.txt", sizeof(local_words));
+	lstrcpyn(p + 1, "words.txt", sizeof(buf));
 
-	if (IsExists(local_words)) {
+	if (IsExists(local_words))
+	{
 		LoadDict(local_words);
 	}
 	else {
-		fprintf(stderr, "Dictionary %s is missing\n", local_words);
+		fprintf(stderr, "Dictionary %s is missingn", local_words);
 		exit(1);
 	}
-
 #else
 	// Unix
-	if (IsExists(main_dict1)) {
-		LoadDict(main_dict1);
+	if (IsExists(s_main_dict1)) {
+		LoadDict(s_main_dict1);
 	}
-	else if (IsExists(main_dict2)) {
-		LoadDict(main_dict2);
+	else if (IsExists(s_main_dict2)) {
+		LoadDict(s_main_dict2);
 	}
 	else {
-		fprintf(stderr, "Could not load %s or %s\n", main_dict1, main_dict2);
+		fprintf(stderr, "Could not load %s or %s\n", s_main_dict1, s_main_dict2);
 	}
 
 	snprintf(local_words, sizeof(local_words), "%s/words", getenv("HOME"));
@@ -147,7 +149,7 @@ bool InDict(const char *word)
 {
 	char	lower[MAX_WORD];
 
-	if (dict.size() == 0)
+	if (s_dict.size() == 0)
 	{
 		LoadDict();
 	}
@@ -156,5 +158,5 @@ bool InDict(const char *word)
 
 	portable_strlcpy(lower, word, sizeof(lower));
 	ToLower(lower);
-	return dict[lower];
+	return s_dict[lower];
 }
