@@ -84,7 +84,7 @@ inline char *Shuffle(char *dest, const char *src)
 	return (char *) memmove(dest, src, strlen(src) + 1);
 }
 
-static char insert_chars[] = "-abcdefghijklmnopqrstuvwxyz";
+static char s_insert_chars[] = "-abcdefghijklmnopqrstuvwxyz";
 
 static void Suggestions(const char *word_in, WORD_LIST &b)
 {
@@ -147,9 +147,9 @@ static void Suggestions(const char *word_in, WORD_LIST &b)
 		{
 			portable_strlcpy(buf, word, sizeof(buf));
 			Shuffle(&buf[i + 1], &buf[i]);
-			for (j = 0; insert_chars[j]; j++)
+			for (j = 0; s_insert_chars[j]; j++)
 			{
-				buf[i] = insert_chars[j];
+				buf[i] = s_insert_chars[j];
 				Mark(a, buf, W_INSERT);
 			}
 		}
