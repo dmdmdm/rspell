@@ -36,13 +36,24 @@ void portable_strlcpy(char *dest, const char *src, const size_t maxChars) {
 #endif
 }
 
-inline bool ceq(const char *a, const char *b)
-{
+inline bool ceq(const char *a, const char *b) {
 #ifdef _MSC_VER
 	return _stricmp(a,b) == 0;
 #else
 	return strcasecmp(a,b) == 0;
 #endif
+}
+
+inline char *Shuffle(char *dest, const char *src) {
+	return (char *) memmove(dest, src, strlen(src) + 1);
+}
+
+void Chomp(char *s) {
+	char	*p;
+
+	if ((p = strchr(s, '\n')) != NULL) {
+		*p = '\0';
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -77,11 +88,6 @@ static void CheckSuggestions(const WORD_MAP &a, WORD_LIST &b)
 			b.push_back(word);
 		}
 	}
-}
-
-inline char *Shuffle(char *dest, const char *src)
-{
-	return (char *) memmove(dest, src, strlen(src) + 1);
 }
 
 static char s_insert_chars[] = "-abcdefghijklmnopqrstuvwxyz";
@@ -246,16 +252,6 @@ static void SpellLine(const char *line)
 				printf("\n");
 			}
 		}
-	}
-}
-
-void Chomp(char *s)
-{
-	char	*p;
-
-	if ((p = strchr(s, '\n')) != NULL)
-	{
-		*p = '\0';
 	}
 }
 
